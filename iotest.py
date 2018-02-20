@@ -16,10 +16,15 @@ def midi_to_hz(n): #converts midi numbers 0-127 to hz, assuming 69=A4=440hz
     return 440*2**(dist/12)
 
 def hz_to_midi(n, rnd=False): #inverts above process: returns a midi note number
-    ans=12*(lg(n)-lg(440))+69
-    if rnd: #optionally gives an integer value
-        ans=round(ans)
-    return ans
+    if n==0:
+        return 0
+    try:
+        ans=12*(lg(n)-lg(440))+69
+        if rnd: #optionally gives an integer value
+            ans=round(ans)
+        return ans
+    except ValueError:
+        assert 1==2, 'valueerror from hz_to_midi on input n: {}'.format(n)
 
 def wav_import(name): #input: e.g., "bass_electronic_018-022-100"
     name=str(name)+".wav"
