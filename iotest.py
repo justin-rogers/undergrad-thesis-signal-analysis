@@ -24,7 +24,7 @@ def hz_to_midi(n, rnd=False): #inverts above process: returns a midi note number
             ans=round(ans)
         return ans
     except ValueError:
-        assert 1==2, 'valueerror from hz_to_midi on input n: {}'.format(n)
+        assert 0, 'valueerror from hz_to_midi on input n: {}'.format(n)
 
 def wav_import(name): #input: e.g., "bass_electronic_018-022-100"
     name=str(name)+".wav"
@@ -56,21 +56,36 @@ def data_graph(data, name, window=-1): #just plots on an xy axis
     plt.savefig(str(name)+'.png')
     plt.show()
 
-def fft_fund(A): #input: A[0] is SR, A[1] is data
+def fft_fund(A, output='hz', rnd=False): #input: A[0] is SR, A[1] is data
     #find the fundamental through fft, no interpolation
-    sample_rate, A_data=A #unpack inputs
-    clip_time=len(A_data)/sample_rate #e.g., 64000/16000=4 seconds of audio
-    spec=np.fft.rfft(A_data).real
-    return np.argmax(spec)/clip_time #most significant frequency in Hz
+    sample_rate, A_data = A #unpack inputs
+    clip_time = len(A_data)/sample_rate #e.g., 64000/16000=4 seconds of audio
+    spec = np.fft.rfft(A_data).real
+    fund_guess = np.argmax(spec)/clip_time
+    if output=='hz':
+        return fund_guess
+    elif output.lower()=='midi':
+        freq_midi = hz_to_midi(fund_guess, rnd=rnd)
+        return freq_midi
+    else:
+        assert 0, 'fft_fund output var error: {}'.format(output)
+        
 
-def zerox_fund(A): #input: A[0] is SR, A[1] is data.
+def zerox_fund(A, output='hz', rnd=False): #input: A[0] is SR, A[1] is data.
     #approximate frequency by counting rising zero crossings.
     sample_rate, A_data=A
-    clip_time=len(A_data)/sample_rate
+    clip_time = len(A_data)/sample_rate
     positive = A_data > 0
     Z=np.where(np.bitwise_and(np.logical_not(positive[1:]), positive[:-1]))[0]
-    return len(Z)/clip_time
-    
+    fund_guess = len(Z)/clip_time
+    if output=='hz':
+        return fund_guess
+    elif output.lower()=='midi':
+        freq_midi = hz_to_midi(fund_guess, rnd=rnd)
+        return freq_midi
+    else:
+        assert 0, 'fft_fund output var error: {}'.format(output)    
+
 def test():
     w=8000
     A=wav_import("bass_electronic_018-022-100")
