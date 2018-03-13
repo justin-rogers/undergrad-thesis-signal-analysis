@@ -16,17 +16,19 @@ def examples_import():
     jdata=open('./nsynth-test/examples.json').read()
     audtest=json.loads(jdata)
     audionames=list(os.listdir('./nsynth-test/audio'))
-    audionames_noext=[x[:-4] for x in audionames]
+    audionames_noext=[x[:-4] for x in audionames] #removes .wav extension
     return audtest, audionames_noext
 
-""" This works and is fine, but the shelf method now seems unnecessary.
+
+""" This works and is fine, but not needed at present.
+#Purpose: save computed things locally so we don't need to recompute every time.
 shelfFile=shelve.open('sound_metadata_test')
 for name in audionames:
     shelfFile[name] = audtest[name]
 shelfFile.close()
 """
 
-def dicts_to_df():
+def init_df():
     adata, anames=examples_import()
     adf=pd.DataFrame.from_dict(adata, orient='index') #constructs dataframe, rows labels filenames, columns qualities
     return adf
@@ -48,5 +50,10 @@ def accuracy_test():
     print('FFT accuracy: {}'.format(fft_hits/total))
     print('ZC accuracy: {}'.format(zc_hits/total))
 
+    #When I was (mistakenly) discarding sine components:
     #FFT accuracy: 0.543212890625
+    #ZC accuracy: 0.04296875
+    
+    #After getting correct amplitude (modulus):
+    #FFT accuracy: 0.604736328125
     #ZC accuracy: 0.04296875
