@@ -1,0 +1,7 @@
+I was struck by the large misclassification error that occurs for the voice FFT. I looked at an example, which is plotted.
+
+An obvious error is occurring: The 0th component of the FFT should have no meaningful pitch information. It should be the amplitude information/y intercept. As written, fft_fund() guesses 0 hz to be the fundamental frequency-- which was probably causing a fair few misclassifications.
+
+Changing FFT to ignore the 0th place, we see new results-- and new error graphs, included. In particular, it guesses correctly on this (arbitrarily-selected) example. This increases accuracy by about ~1% overall (0.612548828125).
+
+Our error rate of ~87% on vocal samples has been reduced to ~65%.
