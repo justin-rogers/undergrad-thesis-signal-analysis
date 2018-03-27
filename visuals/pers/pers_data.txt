@@ -1,0 +1,26 @@
+[[-4400153.0518428339, 4403, 80, 29986, 3812, 11030],
+ [-6582532.6567301964, 3523, 54, 30881, 3195, 13562],
+ [-8849766.0664532389, 1751, 19, 131, 1737, 1758],
+ [-10753697.471538432, 2642, 26, 30306, 2299, 3195],
+ [-32618648.115803581, 883, 1, 30329, 328, 1322]]
+
+
+first: negative persistence (lower is more significant, will fix sign later)
+second: frequency in quarter-hz (divide by 4)
+
+
+(note that this tone has pitch 220)
+
+{'instrument': 436,
+ 'instrument_family': 8,
+ 'instrument_family_str': 'string',
+ 'instrument_source': 0,
+ 'instrument_source_str': 'acoustic',
+ 'instrument_str': 'string_acoustic_056',
+ 'note': 76466,
+ 'note_str': 'string_acoustic_056-057-127',
+ 'pitch': 57,
+ 'qualities': [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+ 'qualities_str': ['reverb'],
+ 'sample_rate': 16000,
+ 'velocity': 127}
