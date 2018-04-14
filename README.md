@@ -1,2 +1,2 @@
 # Baconian-semiotics
-some signal-processing work
+Some work in F0 estimation, using persistent homology and various techniques from signal processing.
