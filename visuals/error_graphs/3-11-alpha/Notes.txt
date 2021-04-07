@@ -1,4 +1,0 @@
-These are graphs created after fixing the modulus problem (i.e., the discarded imaginary components).
-
-Accuracy for predictor Lone Max Frequency: fft_fund(): 0.604736328125
-Average error: 29.89561457689932. Hits: 2477. Misses: 1619. Trials: 4096.
